@@ -882,6 +882,7 @@ __global__ void burst_attention_kernel(
             }
         }
     }
+  }
 }
 
 }  // namespace aphrodite
