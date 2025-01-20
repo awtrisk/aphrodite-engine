@@ -51,17 +51,16 @@ TORCH_LIBRARY_EXPAND(TORCH_EXTENSION_NAME, ops) {
   ops.def(
       "burst_attention("
       "    Tensor! out, Tensor query, Tensor key_cache,"
-      "    Tensor value_cache, int num_kv_heads, float scale,"
+      "    Tensor value_cache, int num_kv_heads, double scale," // Changed to double
       "    Tensor block_tables, Tensor seq_lens, int block_size,"
       "    int max_seq_len, Tensor? alibi_slopes,"
-      "    str kv_cache_dtype, float k_scale, float v_scale,"
+      "    str kv_cache_dtype, double k_scale, double v_scale," // Changed to double
       "    int tp_rank, int blocksparse_local_blocks,"
       "    int blocksparse_vert_stride, int blocksparse_block_size,"
       "    int blocksparse_head_sliding_step,"
       "    Tensor ipc_handles, Tensor ipc_offsets, Tensor shared_signals,"
       "    int world_size, int rank,"
       "    int tile_size) -> ()");
-  ops.impl("burst_attention", torch::kCUDA, &burst_attention);
 
   // Activation ops
   // Activation function used in SwiGLU.

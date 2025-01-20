@@ -863,7 +863,7 @@ __global__ void burst_attention_kernel(
         for (int i = 0; i < NUM_ELEMS_PER_THREAD; ++i) {
             acc += accs[i];
         }
-        out[seq_idx * num_heads * HEAD_SIZE + head_idx * HEAD_SIZE] = from_float((float)(acc / exp_sum));
+        from_float(out[seq_idx * num_heads * HEAD_SIZE + head_idx * HEAD_SIZE], static_cast<float>(acc / exp_sum));
     }
 
     // Cleanup: Close IPC handles
@@ -882,6 +882,7 @@ __global__ void burst_attention_kernel(
             }
         }
     }
+  }
 }
 
 }  // namespace aphrodite
@@ -1483,7 +1484,7 @@ void burst_attention(
 ) {
   const bool is_block_sparse = (blocksparse_vert_stride > 1);
   DISPATCH_BY_KV_CACHE_DTYPE(query.dtype(), kv_cache_dtype,
-                             CALL_BURST_ATTENTION_LAUNCHER_BLOCK_SIZE)
+                            CALL_BURST_ATTENTION_LAUNCHER_BLOCK_SIZE)
 }
 
 #undef WARP_SIZE
