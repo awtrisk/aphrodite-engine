@@ -863,7 +863,7 @@ __global__ void burst_attention_kernel(
         for (int i = 0; i < NUM_ELEMS_PER_THREAD; ++i) {
             acc += accs[i];
         }
-        from_float(out[seq_idx * num_heads * HEAD_SIZE + head_idx * HEAD_SIZE], static_cast<float>(acc / exp_sum));
+        out[seq_idx * num_heads * HEAD_SIZE + head_idx * HEAD_SIZE] = from_float(static_cast<scalar_t>(acc / exp_sum));
     }
 
     // Cleanup: Close IPC handles
