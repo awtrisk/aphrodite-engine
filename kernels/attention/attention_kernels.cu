@@ -1484,9 +1484,8 @@ void burst_attention(
 ) {
   const bool is_block_sparse = (blocksparse_vert_stride > 1);
   DISPATCH_BY_KV_CACHE_DTYPE(query.dtype(), kv_cache_dtype,
-                            CALL_BURST_ATTENTION_LAUNCHER_BLOCK_SIZE)
+                             CALL_BURST_ATTENTION_LAUNCHER_BLOCK_SIZE)
 }
-
 #undef WARP_SIZE
 #undef MAX
 #undef MIN
